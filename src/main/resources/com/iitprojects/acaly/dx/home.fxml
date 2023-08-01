@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
@@ -58,8 +59,9 @@
                   </Label>
                   <HBox layoutX="378.0" layoutY="-36.0" spacing="4.0" AnchorPane.bottomAnchor="4.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="4.0">
                      <children>
+                        <ProgressIndicator fx:id="loading" prefHeight="13.0" prefWidth="14.0" />
                         <TextField minWidth="200.0" promptText="Search" />
-                        <Button mnemonicParsing="false" onAction="#addToCatVbox" text="🔍" />
+                        <Button mnemonicParsing="false" onAction="#getData" text="🔍" />
                      </children>
                   </HBox>
                </children>
@@ -67,7 +69,7 @@
             <Separator prefWidth="200.0" />
          </children>
       </VBox>
-      <AnchorPane layoutY="98.0" prefHeight="216.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+      <AnchorPane layoutY="98.0" prefHeight="216.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
          <children>
             <SplitPane dividerPositions="0.5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <items>
@@ -90,9 +92,6 @@
                                           <ScrollPane fitToWidth="true" maxWidth="1.7976931348623157E308">
                                              <content>
                                                 <VBox fx:id="categoriesVbox" spacing="8.0" style="-fx-background-color: white;">
-                                                   <children>
-                                                      <Button alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="catListItem" stylesheets="@../../../../styles/home.css" text="Button" />
-                                                   </children>
                                                    <padding>
                                                       <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                                                    </padding>
@@ -136,7 +135,7 @@
                   </AnchorPane>
                   <VBox>
                      <children>
-                        <Label text="All Tasks" textFill="#081466">
+                        <Label fx:id="titleLbl" text="All Tasks" textFill="#081466">
                            <VBox.margin>
                               <Insets left="16.0" top="16.0" />
                            </VBox.margin>
@@ -144,29 +143,37 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="418.0">
+                      <AnchorPane minHeight="400.0" minWidth="400.0">
                            <children>
-                              <GridPane hgap="8.0" layoutX="14.0" layoutY="14.0" vgap="8.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="16.0">
-                                <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" />
-                                    <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.columnIndex="1" />
-                                    <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.columnIndex="2" />
-                                    <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.rowIndex="1" />
-                                    <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                 </children>
-                              </GridPane>
+                              <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="11.0" layoutY="12.0" style="-fx-background-color: #F4F4F4;" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="16.0">
+                                 <content>
+                                    <GridPane fx:id="taskGrid" hgap="8.0" vgap="8.0">
+                                      <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <VBox alignment="CENTER" styleClass="taskTile" stylesheets="@../../../../styles/task.css">
+                                             <children>
+                                                <Label prefWidth="74.0" text="Task Title" textOverrun="CENTER_WORD_ELLIPSIS" wrapText="true">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label text="Task Subtitle" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </GridPane>
+                                 </content>
+                              </ScrollPane>
                            </children>
                         </AnchorPane>
                      </children>
@@ -180,7 +187,6 @@
       </AnchorPane>
       <HBox alignment="CENTER_RIGHT" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Label text="Label" />
             <Button mnemonicParsing="false" text="Button">
                <font>
                   <Font size="10.0" />

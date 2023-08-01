@@ -45,3 +45,21 @@
     -fx-border-width:0;
     -fx-border-color: white;
 }
+
+.taskTile {
+    -fx-background-color: #ffffff; /* Set the background color to white */
+    -fx-border-color: #eeeeee; /* Set the background color to white */
+    -fx-background-radius: 5px; /* Rounded corners for the background */
+    -fx-border-radius: 5px;
+    -fx-border-width: 1;
+    -fx-border-color: #e0e0e0; /* Light gray border color */
+    -fx-padding: 10px; /* Add some padding inside the tile */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1); /* Add a subtle drop shadow effect */
+    -fx-transition: background-color 0.3s, border-color 0.3s; /* Add smooth transitions */
+}
+
+.taskTile:hover {
+    -fx-background-color: #f48fb1; /* Light pink background on hover */
+    -fx-border-color: #f48fb1; /* Matching border color on hover */
+    -fx-cursor: hand; /* Change the cursor to a hand on hover */
+}
