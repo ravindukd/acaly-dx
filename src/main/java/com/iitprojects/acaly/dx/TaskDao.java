@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskDao {
+    
+    public static int selectedID;
 
     public static List<Task> getAllTasks(int cat) throws SQLException {
         List<Task> tasks = new ArrayList<>();
