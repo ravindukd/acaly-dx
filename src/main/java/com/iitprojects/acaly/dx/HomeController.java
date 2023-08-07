@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.iitprojects.acaly.dx;
 
 import java.io.IOException;
@@ -97,8 +93,6 @@ public class HomeController implements Initializable {
 
     @FXML
     private void loadTasks(int catId, String title) {
-        loading.setVisible(true);
-
         titleLbl.setText(title + " Tasks");
 
         try {
@@ -137,26 +131,27 @@ public class HomeController implements Initializable {
                             pn.getStyleClass().add("taskTile");
 
                             VBox vBox = new VBox();
+                            vBox.setSpacing(8);
                             vBox.setAlignment(Pos.CENTER);
                             vBox.getStyleClass().add("taskTile");
+                            vBox.setStyle("-fx-background-color:" + task.bgColor + ";");
 
                             Label t = new Label(task.getTitle());
                             t.setFont(Font.font(18));
 
-                            Label s = new Label(task.getTitle());
-                            s.setFont(Font.font(12));
-
+//                            Label s = new Label(task.getTitle());
+//                            s.setFont(Font.font(12));
                             Button b = new Button("Select");
-                            
+
                             b.setOnAction(event -> {
                                 try {
-                                    TaskDao.selectedID = task.id;
+                                    TaskDao.selectedTask = task;
                                     App.setRoot("task-home");
                                 } catch (IOException e) {
                                     System.out.println("Load Error: " + e.getMessage());
                                 }
                             });
-                            vBox.getChildren().addAll(t, s, b);
+                            vBox.getChildren().addAll(t, b);
 
                             pn.getChildren().add(vBox);
                             taskGrid.add(vBox, j, i, 1, 1);
@@ -167,13 +162,8 @@ public class HomeController implements Initializable {
                 }
             }
 
-            loading.setVisible(false);
-
         } catch (SQLException ex) {
-            loading.setVisible(false);
-
+            System.out.println(ex);
         }
-        loading.setVisible(false);
-
     }
 }
