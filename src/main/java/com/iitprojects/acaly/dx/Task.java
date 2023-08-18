@@ -4,11 +4,11 @@ public class Task  extends BaseItem {
     
     private String bgColor;
     
-    String getBgColor(){
+    public String getBgColor(){
         return this.bgColor;
     }
     
-    void setBgColor(String color){
+    public void setBgColor(String color){
         this.bgColor = color;
     }
 

@@ -1,8 +1,11 @@
 package com.iitprojects.acaly.dx;
 
-public class Category {
+abstract class AbstractCategory {
+    protected int id;
+    protected String name;
+    protected String description;
 
-    public Category(int id, String name, String desc) {
+    public AbstractCategory(int id, String name, String desc) {
         this.id = id;
         this.name = name;
         this.description = desc;
@@ -15,8 +18,17 @@ public class Category {
     public int getID() {
         return this.id;
     }
-    public int id;
-    public String name;
-    public String description;
 
+    public abstract String getCategoryInfo();
+}
+
+class Category extends AbstractCategory {
+    public Category(int id, String name, String desc) {
+        super(id, name, desc);
+    }
+
+    @Override
+    public String getCategoryInfo() {
+        return "Category ID: " + id + ", Category Name: " + name;
+    }
 }
