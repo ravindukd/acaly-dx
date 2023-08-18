@@ -134,7 +134,7 @@ public class HomeController implements Initializable {
                             vBox.setSpacing(8);
                             vBox.setAlignment(Pos.CENTER);
                             vBox.getStyleClass().add("taskTile");
-                            vBox.setStyle("-fx-background-color:" + task.bgColor + ";");
+                            vBox.setStyle("-fx-background-color:" + task.getBgColor() + ";");
 
                             Label t = new Label(task.getTitle());
                             t.setFont(Font.font(18));

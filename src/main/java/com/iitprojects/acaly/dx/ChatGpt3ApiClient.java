@@ -77,19 +77,6 @@ public class ChatGpt3ApiClient {
         }
     }
 
-    public static void main(String[] args) {
-        List<ChatMessage> messages = List.of(
-                new ChatMessage("system", "You are a helpful assistant."),
-                new ChatMessage("user", "Hello!")
-        );
-
-        try {
-            String response = callGpt3ChatApi(messages);
-            System.out.println("GPT-3 API response:\n" + response);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static String extractFirstContent(String response) {
         // Find the starting index of the content

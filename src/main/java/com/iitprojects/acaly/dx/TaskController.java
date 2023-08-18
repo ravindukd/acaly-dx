@@ -31,7 +31,6 @@ import javafx.scene.text.FontWeight;
  * @author ravin
  */
 public class TaskController implements Initializable {
-
     private int currentStep = 0;
 
     @FXML
@@ -60,15 +59,15 @@ public class TaskController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        messages.add(new ChatMessage("system", TaskDao.selectedTask.description));
+        messages.add(new ChatMessage("system", TaskDao.selectedTask.getDescription()));
         setTaskUI();
     }
 
     private void setTaskUI() {
-        titleLbl.setText(TaskDao.selectedTask.title);
-        subTitleLbl.setText(TaskDao.selectedTask.description);
-        titleBg.setStyle("-fx-background-color:" + TaskDao.selectedTask.bgColor + ";");
-        headerBg.setStyle("-fx-background-color:" + TaskDao.selectedTask.bgColor + ";");
+        titleLbl.setText(TaskDao.selectedTask.getTitle());
+        subTitleLbl.setText(TaskDao.selectedTask.getDescription());
+        titleBg.setStyle("-fx-background-color:" + TaskDao.selectedTask.getBgColor() + ";");
+        headerBg.setStyle("-fx-background-color:" + TaskDao.selectedTask.getBgColor() + ";");
         this.loadSteps();
     }
 
@@ -109,7 +108,7 @@ public class TaskController implements Initializable {
 
     @FXML
     private void loadSteps() {
-        List<Step> steps = TaskDao.getAllSteps(TaskDao.selectedTask.id);
+        List<Step> steps = TaskDao.getAllSteps(TaskDao.selectedTask.getId());
 
         for (Step step : steps) {
             AnchorPane anchorPane = new AnchorPane();
@@ -122,8 +121,8 @@ public class TaskController implements Initializable {
             anchorPane.getChildren().add(descriptionLabel);
 
             TextArea instructionTextArea = new TextArea();
-            instructionTextArea.setPromptText(step.instruciton);
             instructionTextArea.setWrapText(true);
+            instructionTextArea.setPromptText(step.instruciton);
             AnchorPane.setBottomAnchor(instructionTextArea, 64.0);
             AnchorPane.setLeftAnchor(instructionTextArea, 16.0);
             AnchorPane.setRightAnchor(instructionTextArea, 16.0);
